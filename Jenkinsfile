@@ -4,7 +4,7 @@ pipeline {
     tools {
         maven 'localMAVEN'
     }
-    
+
     stages{
         stage('Build'){
             steps {
@@ -13,7 +13,7 @@ pipeline {
             post {
                 success {
                     echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/*.war'
+                    archiveArtifacts artifacts: '/Users/Shared/Jenkins/Home/workspace/PipelineAsCodeExample/webapp/**/*.war**'
                 }
             }
         }
