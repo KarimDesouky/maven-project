@@ -13,7 +13,7 @@ pipeline {
             post {
                 success {
                     echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '/Users/Shared/Jenkins/Home/workspace/PipelineAsCodeExample/webapp/**/*.war'
+                    archiveArtifacts artifacts: '/webapp/**/*.war'
                 }
             }
         }
