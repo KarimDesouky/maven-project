@@ -9,39 +9,14 @@ pipeline {
         stage('Build'){
             steps {
                 sh 'mvn clean package'
+                sh 'docker build . -t tomcatwebapp:${env.BUILD_ID}' 
             }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: 'webapp/**/*.war'
-                }
-            }
+            // post {
+            //     success {
+            //         echo 'Now Archiving...'
+            //         archiveArtifacts artifacts: 'webapp/**/*.war'
+            //     }
+            // }
         }
-        stage ('Deploy to Staging'){
-            steps {
-                build job: 'deploy-to-staging'
-            }
-        }
-
-        stage ('Deploy to Production'){
-            steps{
-                timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                }
-
-                build job: 'deploy-to-Prod'
-            }
-            post {
-                success {
-                    echo 'Code deployed to Production.'
-                }
-
-                failure {
-                    echo ' Deployment failed.'
-                }
-            }
-        }
-
-
     }
 }
